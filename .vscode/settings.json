@@ -1,0 +1,7 @@
+{
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "editor.formatOnSave": true,
+  "java.sources.organizeImports.onFormat": true,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true
+}
