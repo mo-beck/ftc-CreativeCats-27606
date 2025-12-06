@@ -51,7 +51,7 @@ public class BaseRobot extends OpMode {
         servo.setPower(1);
         if (((DcMotorEx) flywheel).getVelocity() >= bankVelocity - 100) {
             coreHex.setPower(1);
-        } else {    `
+        } else {
             coreHex.setPower(0);
         }
     }
