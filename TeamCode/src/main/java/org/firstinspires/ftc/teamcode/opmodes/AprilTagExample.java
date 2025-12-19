@@ -13,7 +13,6 @@ import java.util.List;
 @Autonomous
 public class AprilTagExample extends OpMode {
     AprilTagCam aprilTagCam = new AprilTagCam();
-    ImuDisp imuDisp = new ImuDisp();
 
     @Override
     public void init(){
@@ -29,6 +28,5 @@ public class AprilTagExample extends OpMode {
             /*telemetry.addData("id20 String", id20.toString());*/
             aprilTagCam.displayDetectionTelemetry(id);
         }
-        imuDisp.runOpMode();
     }
 }

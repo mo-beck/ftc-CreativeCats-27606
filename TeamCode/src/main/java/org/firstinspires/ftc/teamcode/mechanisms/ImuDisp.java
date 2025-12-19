@@ -18,7 +18,7 @@ public class ImuDisp extends LinearOpMode {
 
         // Retrieve the IMU from the hardware map
         imu = hardwareMap.get(IMU.class, "imu");
-        
+
         // Create and configure IMU parameters
        /* IMU.Parameters parameters = new IMU.Parameters(
                 AngleUnit.DEGREES,

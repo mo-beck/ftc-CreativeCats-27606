@@ -6,10 +6,10 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
-public class ccAuto extends BaseRobot {
+public class ccautolong extends BaseRobot {
 
-    private ElapsedTime autoLaunchTimer = new ElapsedTime();
-    private ElapsedTime autoDriveTimer = new ElapsedTime();
+    private ElapsedTime autoLaunchTimer = new ElapsedTime(15);
+    private ElapsedTime autoDriveTimer = new ElapsedTime(5);
 
     private double WHEELS_INCHES_TO_TICKS = (28 * 5 * 3) / (3 * Math.PI);
 
@@ -26,6 +26,7 @@ public class ccAuto extends BaseRobot {
 
     @Override
     public void start() {
+        //gototargetTag(RED?BLUE);
         doAuto();
     }
 //Autonomous Code
@@ -62,21 +63,22 @@ public class ccAuto extends BaseRobot {
         telemetry.addData("RUNNING OPMODE", "Auto");
         telemetry.update();
         // Fire balls
+
+        ((DcMotorEx) flywheel).setVelocity(0);
+        coreHex.setPower(0);
+        servo.setPower(0);
+        // drive
+        autoDrive(0.5, 40, 40, 5000);
+        // Turn
+        autoDrive(0.5, -7, 8, 5000);
+        // drive
+        autoDrive(0.5, 90, 90, 5000);
         autoLaunchTimer.reset();
         while (autoLaunchTimer.milliseconds() < 10000) {
             BANK_SHOT_AUTO();
             telemetry.addData("Launcher Countdown", autoLaunchTimer.seconds());
             telemetry.update();
         }
-        ((DcMotorEx) flywheel).setVelocity(0);
-        coreHex.setPower(0);
-        servo.setPower(0);
-        // Turn
-        autoDrive(0.5, -8, 8, 5000);
-        // Back Up
-        autoDrive(0.5, -20, -20, 5000);
-
-       stop();
-       // autoDrive(1, -50, -50, 5000);
+        // autoDrive(1, -50, -50, 5000);
     }
 }
