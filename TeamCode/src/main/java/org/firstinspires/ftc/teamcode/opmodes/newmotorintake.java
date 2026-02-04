@@ -1,0 +1,83 @@
+package org.firstinspires.ftc.teamcode.opmodes;
+
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+
+public class newmotorintake {//TeleOp Code
+
+    /**
+     * If TeleOp was selected or defaulted to, the following will be active upon pressing "play".
+     */
+    public void loop() {
+        // Calling our methods while the OpMode is running
+        splitStickArcadeDrive();
+        setFlywheelVelocity();
+        manualCoreHexAndServoControl();
+        telemetry.addData("Flywheel Velocity", ((DcMotorEx) flywheel).getVelocity());
+        telemetry.addData("Flywheel Power", flywheel.getPower());
+        telemetry.update();
+    }
+
+    /**
+     * Controls for the drivetrain. The robot uses a split stick stlye arcade drive.
+     * Forward and back is on the left stick. Turning is on the right stick.
+     */
+    private void splitStickArcadeDrive() {
+        float X;
+        float Y;
+
+        X = gamepad1.right_stick_x;
+        Y = -gamepad1.left_stick_y;
+        leftDrive.setPower(Y - X);
+        rightDrive.setPower(Y + X);
+    }
+
+    /**
+     * Manual control for the Core Hex powered feeder and the agitator servo in the hopper
+     */
+    private void manualCoreHexAndServoControl() {
+        // Manual control for the Core Hex intake
+        if (gamepad1.cross) {
+            coreHex.setPower(0.5);
+        } else if (gamepad1.triangle) {
+            coreHex.setPower(-0.5);
+        }
+        // Manual control for the hopper's servo
+        if (gamepad1.dpad_left) {
+            servo.setPower(1);
+        } else if (gamepad1.dpad_right) {
+            servo.setPower(-1);
+        }
+    }
+
+    /**
+     * This if/else statement contains the controls for the flywheel, both manual and auto.
+     * Circle and Square will spin up ONLY the flywheel to the target velocity set.
+     * The bumpers will activate the flywheel, Core Hex feeder, and servo to cycle a series of balls.
+     */
+    private void setFlywheelVelocity() {
+        if (gamepad1.options) {
+            flywheel.setPower(-0.5);
+        } else if (gamepad1.left_bumper) {
+            FAR_POWER_AUTO();
+        } else if (gamepad1.right_bumper) {
+            BANK_SHOT_AUTO();
+        } else if (gamepad1.circle) {
+            ((DcMotorEx) flywheel).setVelocity(bankVelocity);
+        } else if (gamepad1.square) {
+            ((DcMotorEx) flywheel).setVelocity(maxVelocity);
+        } else {
+            ((DcMotorEx) flywheel).setVelocity(0);
+            coreHex.setPower(0);
+            // The check below is in place to prevent stuttering with the servo. It checks if the servo is under manual control!
+            if (!gamepad1.dpad_right && !gamepad1.dpad_left) {
+                servo.setPower(0);
+            }
+        }
+    }
+
+
+
+
+}
+
+}

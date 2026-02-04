@@ -74,7 +74,7 @@ public class ccautoblue extends BaseRobot {
         // Turn
         autoDrive(0.5, 8, -8, 5000);
         // Back Up
-        autoDrive(0.5, -20, -20, 5000);
+        autoDrive(0.5, -30, -30, 5000);
 
         stop();
         // autoDrive(1, -50, -50, 5000);
