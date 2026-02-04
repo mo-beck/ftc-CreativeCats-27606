@@ -1,11 +1,22 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-public class newmotorintake {//TeleOp Code
+@TeleOp
+
+public class newmotorintake extends BaseRobot {
+    // TeleOp Code
+
+    // INTAKE add new motor intake hardware variable (See examples in BaseRobot)
+
+    // INTAKE
+    // need to override init method and add the new motor intake hardware mapping
+    // (See init in BaseRobot)
 
     /**
-     * If TeleOp was selected or defaulted to, the following will be active upon pressing "play".
+     * If TeleOp was selected or defaulted to, the following will be active upon
+     * pressing "play".
      */
     public void loop() {
         // Calling our methods while the OpMode is running
@@ -32,7 +43,8 @@ public class newmotorintake {//TeleOp Code
     }
 
     /**
-     * Manual control for the Core Hex powered feeder and the agitator servo in the hopper
+     * Manual control for the Core Hex powered feeder and the agitator servo in the
+     * hopper
      */
     private void manualCoreHexAndServoControl() {
         // Manual control for the Core Hex intake
@@ -50,16 +62,20 @@ public class newmotorintake {//TeleOp Code
     }
 
     /**
-     * This if/else statement contains the controls for the flywheel, both manual and auto.
+     * This if/else statement contains the controls for the flywheel, both manual
+     * and auto.
      * Circle and Square will spin up ONLY the flywheel to the target velocity set.
-     * The bumpers will activate the flywheel, Core Hex feeder, and servo to cycle a series of balls.
+     * The bumpers will activate the flywheel, Core Hex feeder, and servo to cycle a
+     * series of balls.
      */
     private void setFlywheelVelocity() {
         if (gamepad1.options) {
             flywheel.setPower(-0.5);
         } else if (gamepad1.left_bumper) {
+            // INTAKE add function to set intake velocity
             FAR_POWER_AUTO();
         } else if (gamepad1.right_bumper) {
+            // INTAKE add function to set intake velocity
             BANK_SHOT_AUTO();
         } else if (gamepad1.circle) {
             ((DcMotorEx) flywheel).setVelocity(bankVelocity);
@@ -68,16 +84,18 @@ public class newmotorintake {//TeleOp Code
         } else {
             ((DcMotorEx) flywheel).setVelocity(0);
             coreHex.setPower(0);
-            // The check below is in place to prevent stuttering with the servo. It checks if the servo is under manual control!
+            // The check below is in place to prevent stuttering with the servo. It checks
+            // if the servo is under manual control!
             if (!gamepad1.dpad_right && !gamepad1.dpad_left) {
                 servo.setPower(0);
             }
         }
     }
 
+    // INTAKE add function to set intake velocity (to be placed in
+    // "setFlyWheelVelocity" and manual intake functions
 
-
-
-}
+    // INTAKE add function to manually set the intake velocity (to be placed in main
+    // loop)
 
 }
