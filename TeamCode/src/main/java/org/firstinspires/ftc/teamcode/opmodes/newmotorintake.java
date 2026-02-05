@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 @TeleOp
@@ -9,11 +10,17 @@ public class newmotorintake extends BaseRobot {
     // TeleOp Code
 
     // INTAKE add new motor intake hardware variable (See examples in BaseRobot)
-
+    protected DcMotor intake;
     // INTAKE
     // need to override init method and add the new motor intake hardware mapping
     // (See init in BaseRobot)
-
+    @Override
+    public void init() {
+        super.init();
+        intake = hardwareMap.get(DcMotor.class, "intake");
+        intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        intake.setDirection(DcMotor.Direction.REVERSE);
+    }
     /**
      * If TeleOp was selected or defaulted to, the following will be active upon
      * pressing "play".
@@ -22,7 +29,7 @@ public class newmotorintake extends BaseRobot {
         // Calling our methods while the OpMode is running
         splitStickArcadeDrive();
         setFlywheelVelocity();
-        manualCoreHexAndServoControl();
+        manualCoreHexAndIntakeControl();
         telemetry.addData("Flywheel Velocity", ((DcMotorEx) flywheel).getVelocity());
         telemetry.addData("Flywheel Power", flywheel.getPower());
         telemetry.update();
@@ -38,7 +45,7 @@ public class newmotorintake extends BaseRobot {
 
         X = gamepad1.right_stick_x;
         Y = -gamepad1.left_stick_y;
-        leftDrive.setPower(Y - X);
+            leftDrive.setPower(Y - X);
         rightDrive.setPower(Y + X);
     }
 
@@ -46,7 +53,7 @@ public class newmotorintake extends BaseRobot {
      * Manual control for the Core Hex powered feeder and the agitator servo in the
      * hopper
      */
-    private void manualCoreHexAndServoControl() {
+    private void manualCoreHexAndIntakeControl() {
         // Manual control for the Core Hex intake
         if (gamepad1.cross) {
             coreHex.setPower(0.5);
@@ -55,9 +62,9 @@ public class newmotorintake extends BaseRobot {
         }
         // Manual control for the hopper's servo
         if (gamepad1.dpad_left) {
-            servo.setPower(1);
+            ((DcMotorEx) intake).setVelocity(1000);
         } else if (gamepad1.dpad_right) {
-            servo.setPower(-1);
+            ((DcMotorEx) intake).setVelocity(1000);
         }
     }
 
@@ -85,9 +92,9 @@ public class newmotorintake extends BaseRobot {
             ((DcMotorEx) flywheel).setVelocity(0);
             coreHex.setPower(0);
             // The check below is in place to prevent stuttering with the servo. It checks
-            // if the servo is under manual control!
+            // if the intake is under manual control!
             if (!gamepad1.dpad_right && !gamepad1.dpad_left) {
-                servo.setPower(0);
+                intake.setPower(0);
             }
         }
     }
