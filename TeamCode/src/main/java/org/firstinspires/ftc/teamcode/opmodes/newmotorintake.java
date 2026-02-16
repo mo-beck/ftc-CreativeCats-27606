@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
 
@@ -11,6 +12,7 @@ public class newmotorintake extends BaseRobot {
 
     // INTAKE add new motor intake hardware variable (See examples in BaseRobot)
     protected DcMotor intake;
+
     // INTAKE
     // need to override init method and add the new motor intake hardware mapping
     // (See init in BaseRobot)
@@ -18,9 +20,11 @@ public class newmotorintake extends BaseRobot {
     public void init() {
         super.init();
         intake = hardwareMap.get(DcMotor.class, "intake");
-        intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        intake.setDirection(DcMotor.Direction.REVERSE);
+        //intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        intake.setDirection(DcMotor.Direction.FORWARD);
+        intake.setPower(0);
     }
+
     /**
      * If TeleOp was selected or defaulted to, the following will be active upon
      * pressing "play".
@@ -45,7 +49,7 @@ public class newmotorintake extends BaseRobot {
 
         X = gamepad1.right_stick_x;
         Y = -gamepad1.left_stick_y;
-            leftDrive.setPower(Y - X);
+        leftDrive.setPower(Y - X);
         rightDrive.setPower(Y + X);
     }
 
@@ -61,11 +65,12 @@ public class newmotorintake extends BaseRobot {
             coreHex.setPower(-0.5);
         }
         // Manual control for the hopper's servo
-        if (gamepad1.dpad_left) {
-            ((DcMotorEx) intake).setVelocity(1000);
-        } else if (gamepad1.dpad_right) {
-            ((DcMotorEx) intake).setVelocity(1000);
-        }
+        if (gamepad1.left_trigger > 0) {
+            //((DcMotorEx) intake).setVelocity(farVelocity);
+            ((DcMotorEx) intake).setPower(1);
+        } else if (gamepad1.left_trigger > 0) {
+            //((DcMotorEx) intake).setVelocity(farVelocity);
+            ((DcMotorEx) intake).setPower(0);}
     }
 
     /**
@@ -97,12 +102,13 @@ public class newmotorintake extends BaseRobot {
                 intake.setPower(0);
             }
         }
+
+        // INTAKE add function to set intake velocity (to be placed in
+        // "setFlyWheelVelocity" and manual intake functions
+
+        // INTAKE add function to manually set the intake velocity (to be placed in main
+        // loop)
+
+
     }
-
-    // INTAKE add function to set intake velocity (to be placed in
-    // "setFlyWheelVelocity" and manual intake functions
-
-    // INTAKE add function to manually set the intake velocity (to be placed in main
-    // loop)
-
 }

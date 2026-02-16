@@ -70,7 +70,7 @@ public class ccautolongblue extends BaseRobot {
         // drive
         autoDrive(0.5, 40, 40, 5000);
         // Turn
-        autoDrive(0.5, 7, -8, 5000);
+        autoDrive(0.5, -7, 8, 5000);
         // drive
         autoDrive(0.5, 100, 100, 5000);
         autoLaunchTimer.reset();

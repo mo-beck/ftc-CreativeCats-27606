@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
-public class ccautolong extends BaseRobot {
+public class ccautolongred extends BaseRobot {
 
     private ElapsedTime autoLaunchTimer = new ElapsedTime(15);
     private ElapsedTime autoDriveTimer = new ElapsedTime(5);
@@ -70,7 +70,7 @@ public class ccautolong extends BaseRobot {
         // drive
         autoDrive(0.5, 40, 40, 5000);
         // Turn
-        autoDrive(0.5, -7, 8, 5000);
+        autoDrive(0.5, 7, -8, 5000);
         // drive
         autoDrive(0.5, 90, 90, 5000);
         autoLaunchTimer.reset();

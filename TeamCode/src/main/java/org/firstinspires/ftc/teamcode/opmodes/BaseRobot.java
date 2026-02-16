@@ -15,7 +15,7 @@ public class BaseRobot extends OpMode {
     protected DcMotor rightDrive;
 
 
-    public static final int bankVelocity = 1400;
+    public static final int bankVelocity = 1700;
     public static final int farVelocity = 1900;
     public static final int maxVelocity = 2200;
 
