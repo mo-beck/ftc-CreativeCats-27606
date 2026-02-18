@@ -67,8 +67,13 @@ public class newmotorintake extends BaseRobot {
         // Manual control for the hopper's servo
         if (gamepad1.left_trigger > 0) {
             //((DcMotorEx) intake).setVelocity(farVelocity);
+            intake.setDirection(DcMotor.Direction.FORWARD);
             ((DcMotorEx) intake).setPower(1);
-        } else if (gamepad1.left_trigger > 0) {
+        } else if (gamepad1.right_trigger > 0) {
+            //((DcMotorEx) intake).setVelocity(farVelocity);
+            intake.setDirection(DcMotor.Direction.REVERSE);
+            ((DcMotorEx) intake).setPower(1);
+        } else if ((gamepad1.right_trigger == 0)&&(gamepad1.left_trigger == 0)) {
             //((DcMotorEx) intake).setVelocity(farVelocity);
             ((DcMotorEx) intake).setPower(0);}
     }
